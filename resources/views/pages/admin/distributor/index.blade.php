@@ -31,6 +31,7 @@
                         <td>{{ $item->kontak }}</td>
                         <td>{{ $item->email }}</td>
                         <td>
+                        <a href="{{route('distributor.detail', $item->id)}}" class="badge badge-info"> Detail </a>
                         <a href="{{route('distributor.edit', $item->id)}}" class="badge badge-warning"> Edit </a>
                         <a href="{{route('distributor.delete', $item->id)}}" class="badge badge-danger" data-confirm-delete="true"> Hapus </a>
                         </td>

@@ -52,6 +52,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('/distributor/edit/{id}', [DistributorController::class, 'edit'])->name('distributor.edit');
     Route::post('/distributor/update/{id}', [DistributorController::class, 'update'])->name('distributor.update');
     Route::delete('/distributor/delete/{id}', [DistributorController::class, 'delete'])->name('distributor.delete');
+    Route::get('/admin/distributor/detail/{id}', [DistributorController::class, 'detail'])->name('distributor.detail');
     Route::post('/distributor/publish', [DistributorController::class, 'publish'])->name('distributor.publish');
 
     Route::get('/admin-logout', [AuthController::class, 'admin_logout'])->name('admin.logout');
