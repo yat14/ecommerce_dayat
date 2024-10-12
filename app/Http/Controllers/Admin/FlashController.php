@@ -4,32 +4,33 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Flash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
 
-class ProductController extends Controller
+class FlashController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-
+        $flashes = Flash::all();
+        
         confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?');
-
-        return view('pages.admin.product.index', compact('products'));
+        
+        return view('pages.admin.flash.index', compact('flashes'));
     }
 
     public function create()
     {
-        return view('pages.admin.product.create');
+        return view('pages.admin.flash.create');
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'price' => 'numeric',
+            'diskon_price' => 'numeric',
+            'original_price' => 'numeric',
             'category' => 'required',
             'description' => 'required',
             'image' => 'required|mimes:png,jpeg,jpg',
@@ -46,40 +47,42 @@ class ProductController extends Controller
             $image->move('images/', $imageName);
         }
 
-        $product = Product::create([
+        $flash = Flash::create([
             'name' => $request->name,
-            'price' => $request->price,
+            'diskon_price' => $request->diskon_price,
+            'original_price' => $request->original_price,
             'category' => $request->category,
             'description' => $request->description,
             'image' => $imageName,
         ]);
 
-        if ($product) {
-            Alert::success('Berhasil!', 'Produk berhasil ditambahkan!');
-            return redirect()->route('admin.product');
+        if ($flash) {
+            Alert::success('Berhasil!', 'Flash Sale berhasil ditambahkan!');
+            return redirect()->route('admin.flash');
         } else {
-            Alert::error('Gagal!', 'Produk gagal ditambahkan!');
+            Alert::error('Gagal!', 'Flash Sale gagal ditambahkan!');
             return redirect()->back();
         }
     }
 
     public function detail($id)
     {
-        $product = Product::findOrFail($id);
-        return view('pages.admin.product.detail', compact('product'));
+        $flash = Flash::findOrFail($id);
+        return view('pages.admin.flash.detail', compact('flash'));
     }
 
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
-        return view('pages.admin.product.edit', compact('product'));
+        $flash = Flash::findOrFail($id);
+        return view('pages.admin.flash.edit', compact('flash'));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'price' => 'numeric',
+            'diskon_price' => 'numeric',
+            'original_price' => 'numeric',
             'category' => 'required',
             'description' => 'required',
             'image' => 'nullable|mimes:png,jpeg,jpg',
@@ -90,10 +93,10 @@ class ProductController extends Controller
             return redirect()->back();
         }
 
-        $product = Product::findOrFail($id);
+        $flash = Flash::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            $oldPath = public_path('images/' . $product->image);
+            $oldPath = public_path('images/' . $flash->image);
             if (File::exists($oldPath)) {
                 File::delete($oldPath);
             }
@@ -102,44 +105,45 @@ class ProductController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move('images/', $imageName);
         } else {
-            $imageName = $product->image;
+            $imageName = $flash->image;
         }
 
-        $product->update([
+        $flash->update([
             'name' => $request->name,
-            'price' => $request->price,
+            'diskon_price' => $request->diskon_price,
+            'original_price' => $request->original_price,
             'category' => $request->category,
             'description' => $request->description,
             'image' => $imageName,
         ]);
 
-        if ($product) {
-            Alert::success('Berhasil!', 'Produk berhasil diperbarui');
+        if ($flash) {
+            Alert::success('Berhasil!', 'Flash Sale berhasil diperbarui');
             return redirect()->route('admin.product');
         } else {
-            Alert::error('Gagal!', 'Produk gagal diperbarui');
+            Alert::error('Gagal!', 'Flash Sale gagal diperbarui');
             return redirect()->back();        
         }
     }
 
+    
     public function delete($id)
     {
-        $product = Product::findOrFail($id);
-        $oldPath = public_path('images/' . $product->image);
+        $flash = Flash::findOrFail($id);
+        $oldPath = public_path('images/' . $flash->image);
         if (File::exists($oldPath)) {
             File::delete($oldPath);
         }
         
-        $product->delete();
+        $flash->delete();
 
-        if ($product) {
-            Alert::success('Berhasil!', 'Produk berhasil dihapus');
+        if ($flash) {
+            Alert::success('Berhasil!', 'Flash Sale berhasil dihapus');
             return redirect()->back();
         } else {
-            Alert::error('Gagal!', 'Produk gagal dihapus');
+            Alert::error('Gagal!', 'Flash Sale gagal dihapus');
             return redirect()->back();
         }
     }
 
-    
 }

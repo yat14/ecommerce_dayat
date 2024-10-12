@@ -10,7 +10,7 @@
                 <div class="breadcrumb-item">Distributor</div>
             </div>
         </div>
-        <a href="#" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Distributor</a>
+        <a href="{{ route('distributor.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i> Distributor</a>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-md">
@@ -22,7 +22,7 @@
                         <th>Action</th>
                     </tr>
                     @php
-                    $no = 0
+                        $no = 0
                     @endphp
                     @forelse ($distributors as $item)
                     <tr>
@@ -31,9 +31,8 @@
                         <td>{{ $item->kontak }}</td>
                         <td>{{ $item->email }}</td>
                         <td>
-                        <a href="#" class="badge badge-info">Detail</a>
-                        <a href="#" class="badge badge-warning"> Edit </a>
-                        <a href="" class="badge badge-danger"> Hapus </a>
+                        <a href="{{route('distributor.edit', $item->id)}}" class="badge badge-warning"> Edit </a>
+                        <a href="{{route('distributor.delete', $item->id)}}" class="badge badge-danger" data-confirm-delete="true"> Hapus </a>
                         </td>
                     </tr>
                     @empty

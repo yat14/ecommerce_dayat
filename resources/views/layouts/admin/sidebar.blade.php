@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="#">Teknik Informatika | KSI</a>
+            <a href="{{ route('admin.dashboard') }}">Teknik Informatika | KSI</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="#">KSI</a>
+            <a href="{{ route('admin.dashboard') }}">KSI</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Menu</li>
@@ -14,11 +14,14 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="{{ Route::is('admin.product') ? 'active' : '' }}">
+            <li class="{{ Request::is('product*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.product') }}"><i class="fas fa-box"></i> <span>Produk</span></a>
             </li>
+            <li class="{{ Route::is('admin.flash') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.flash') }}"><i class="fas fa-donate"></i> <span>Flash Sale</span></a>
+            </li>
             <li class="{{ Route::is('admin.distributor') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('admin.distributor') }}"><i class="fas fa-box"></i> <span>Distributor</span></a>
+                <a class="nav-link" href="{{ route('admin.distributor') }}"><i class="fas fa-truck"></i> <span>Distributor</span></a>
             </li>
         </ul>
     </aside>
