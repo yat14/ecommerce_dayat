@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Distributor;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Imports\DistributorImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DistributorController extends Controller
 {
@@ -113,5 +116,34 @@ class DistributorController extends Controller
             Alert::error('Gagal!', 'Distributor gagal dihapus');
             return redirect()->back();
         }
+    }
+
+    public function import(Request $request)
+    {
+    try {
+        $file = $request->file('file');
+        Excel::import(new DistributorImport, $file);
+    
+        Alert::success('Berhasil!', 'Data berhasil di import!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $messages = '';
+            foreach ($failures as $failure) {
+                $messages .= 'Kesalahan pada baris ' . $failure->row() . ': ' . implode(', ', $failure->errors()) . '. ';
+            }
+            Alert::error('Gagal!', 'Validasi Gagal: ' . $messages);
+        } catch (\Exception $e) {
+            Alert::error('Gagal!', 'Pastikan format dan isi sudah benar! Error: ' . $e->getMessage());
+        } finally {
+            return redirect()->back();
+        }
+    }
+
+    public function export()
+    {
+        $distributors = Distributor::all();
+        $pdf = Pdf::loadView('pages.admin.distributor.export', compact('distributors'))
+                ->setPaper('a4', 'landscape');
+            return $pdf->download('distributor.pdf');
     }
 }

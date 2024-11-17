@@ -26,6 +26,12 @@ Route::group(['middleware' => 'guest'], function() {
 // Admin Route
 Route::group(['middleware' => 'admin'], function() {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admins', [AdminController::class, 'index'])->name('admin.admin');
+    Route::get('/admins/create', [AdminController::class, 'create'])->name('admin.create');
+    Route::get('/admins/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+    Route::post('/admins/update/{id}', [AdminController::class, 'update'])->name('admin.update');
+    Route::post('/admins/kirim', [AdminController::class, 'kirim'])->name('admin.kirim');
+    Route::delete('/admins/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 
     // Product Route
     Route::get('/product', [ProductController::class, 'index'])->name('admin.product');
@@ -40,7 +46,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('/flash', [FlashController::class, 'index'])->name('admin.flash');
     Route::get('/flash/create', [FlashController::class, 'create'])->name('flash.create');
     Route::post('/flash/store', [FlashController::class, 'store'])->name('flash.store');
-    Route::get('/admin/flash/detail/{id}', [FlashController::class, 'detail'])->name('flash.detail');
+    //Route::get('/admin/flash/detail/{id}', [FlashController::class, 'detail'])->name('flash.detail');
     Route::get('/flash/edit/{id}', [FlashController::class, 'edit'])->name('flash.edit');
     Route::post('/flash/update/{id}', [FlashController::class, 'update'])->name('flash.update');
     Route::delete('/flash/delete/{id}', [FlashController::class, 'delete'])->name('flash.delete');
@@ -54,7 +60,9 @@ Route::group(['middleware' => 'admin'], function() {
     Route::delete('/distributor/delete/{id}', [DistributorController::class, 'delete'])->name('distributor.delete');
     Route::get('/admin/distributor/detail/{id}', [DistributorController::class, 'detail'])->name('distributor.detail');
     Route::post('/distributor/publish', [DistributorController::class, 'publish'])->name('distributor.publish');
-
+    Route::post('/distributor/import', [DistributorController::class, 'import'])->name('distributor.import');
+    Route::get('/distributor/export', [DistributorController::class, 'export'])->name('distributor.export');
+    
     Route::get('/admin-logout', [AuthController::class, 'admin_logout'])->name('admin.logout');
 })->middleware('admin');
 

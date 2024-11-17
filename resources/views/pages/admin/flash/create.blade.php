@@ -20,10 +20,14 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="name">Nama Flash Sale</label>
-                            <input id="name" type="text" class="form-control" name="name" required="">
-                            <div class="invalid-feedback">
-                                Kolom ini harus di isi!
+                            <div class="form-group">
+                                <label for="id_product">Nama Produk</label>
+                                <select name="id_product" class="form-control">
+                                        @foreach ($product as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->name }}</option>
+                                        @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -31,44 +35,6 @@
                         <div class="form-group">
                             <label for="diskon_price">Harga Diskon (Point)</label>
                             <input id="diskon_price" type="number" class="form-control" name="diskon_price" required="">
-                            <div class="invalid-feedback">
-                                Kolom ini harus di isi!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="original_price">Harga Asli (Point)</label>
-                            <input id="original_price" type="number" class="form-control" name="original_price" required="">
-                            <div class="invalid-feedback">
-                                Kolom ini harus di isi!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="category">Kategori Flash Sale</label>
-                            <input id="category" type="text" class="form-control" name="category" required="">
-                            <div class="invalid-feedback">
-                                Kolom ini harus di isi!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="description">Deskripsi Flash Sale</label>
-                            <textarea class="form-control" name="description" id="description" cols="30" rows="40" required=""></textarea>
-                            <div class="invalid-feedback">
-                                Isi berita harus di isi!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <div class="custom-file">
-                                <input class="custom-file-input" name="image" id="customFile" type="file" required="">
-                                <label class="custom-file-label" for="customFile">Pilih Gambar</label>
-                            </div>
                             <div class="invalid-feedback">
                                 Kolom ini harus di isi!
                             </div>

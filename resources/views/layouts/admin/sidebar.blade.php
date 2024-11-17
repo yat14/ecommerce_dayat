@@ -23,6 +23,9 @@
             <li class="{{ Route::is('admin.distributor') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.distributor') }}"><i class="fas fa-truck"></i> <span>Distributor</span></a>
             </li>
+            <li class="{{ Route::is('admin.admin') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.admin') }}"><i class="far fa-user"></i> <span>Admins</span></a>
+            </li>
         </ul>
     </aside>
 </div>

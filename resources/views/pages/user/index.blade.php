@@ -95,11 +95,11 @@
             @forelse ($flashes as $itemFs)
             <div class="col-lg-3 col-md-6">
                 <div class="single-product">
-                    <img class="img-fluid" src="{{ asset('images/' . $itemFs->image) }}" alt="">
+                    <img class="img-fluid" src="{{ asset('images/' . $itemFs->product->image) }}" alt="">
                     <div class="product-details">
                         <h6>{{ $itemFs->name }}</h6>
                         <div class="price">
-                            <h6>Diskon : <del>{{ $itemFs->original_price }} Points</del></h6>
+                            <h6>Diskon : <del>{{ $itemFs->product->price }} Points</del></h6>
                             <h6>Now❗only  {{ $itemFs->diskon_price }} Points</h6>
                         </div>
                         <div class="prd-bottom">

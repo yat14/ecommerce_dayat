@@ -19,60 +19,29 @@
         <a href="{{ route('admin.flash') }}" class="btn btn-icon icon-left btn-warning">Kembali</a>
 
         <div class="card mt-4">
-            <form action="{{ route('flash.update', $flash->id) }}" class="needs-validation" novalidate="" enctype="multipart/form-data" method="POST">
+            <form action="{{ route('flash.update', $dataFlash->id) }}" class="needs-validation" novalidate="" enctype="multipart/form-data" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="name">Nama Flash Sale</label>
-                                <input id="name" type="text" class="form-control" name="name" required="" value="{{ $flash->name }}">
-                                <div class="invalid-feedback">
-                                    Kolom ini harus di isi!
+                                <div class="form-group">
+                                    <label for="id_product">Nama Produk</label>
+                                        <select name="id_product" class="form-control">
+                                                @foreach ($product as $item)
+                                            <option value="{{ $item->id }}" {{ $dataFlash->id_product == $item->id ? 'selected' : ''}}>
+                                                {{ $item->name }}</option>
+                                                @endforeach
+                                        </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="diskon_price">Harga Diskon (Point)</label>
-                                <input id="diskon_price" type="number" class="form-control" name="diskon_price" required="" value="{{ $flash->diskon_price }}">
+                                <input id="diskon_price" type="number" class="form-control" name="diskon_price" required="" value="{{ $dataFlash->diskon_price }}">
                                 <div class="invalid-feedback">
                                     Kolom ini harus di isi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="original_price">Harga Asli (Point)</label>
-                                <input id="original_price" type="number" class="form-control" name="original_price" required="" value="{{ $flash->original_price }}">
-                                <div class="invalid-feedback">
-                                    Kolom ini harus di isi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="category">Kategori Flash Sale</label>
-                                <input id="category" type="text" class="form-control" name="category" required="" value="{{ $flash->category }}">
-                                <div class="invalid-feedback">
-                                    Kolom ini harus di isi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="description">Deskripsi Flash Sale</label>
-                                <textarea class="form-control" name="description" id="description" cols="30" rows="4" required="">{{ $flash->description }}</textarea>
-                                <div class="invalid-feedback">
-                                    Deskripsi harus di isi!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input class="custom-file-input" name="image" id="customFile" type="file">
-                                    <label class="custom-file-label" for="customFile">Pilih Gambar</label>
                                 </div>
                             </div>
                         </div>

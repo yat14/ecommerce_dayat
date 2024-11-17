@@ -5,29 +5,36 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Distributor;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\File;
+use DB;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $data = DB::table('distributors')
+                ->join('products', 'distributors.id', '=', 'products.id_distributor')
+                ->select('distributors.*', 'products.*')
+                ->get();
 
         confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?');
 
-        return view('pages.admin.product.index', compact('products'));
+        return view('pages.admin.product.index', compact('data'));
     }
 
     public function create()
     {
-        return view('pages.admin.product.create');
+        $distributor = Distributor::all();
+        return view('pages.admin.product.create', compact('distributor'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id_distributor' => 'required|numeric',
             'name' => 'required',
             'price' => 'numeric',
             'category' => 'required',
@@ -47,6 +54,7 @@ class ProductController extends Controller
         }
 
         $product = Product::create([
+            'id_distributor' => $request->id_distributor,
             'name' => $request->name,
             'price' => $request->price,
             'category' => $request->category,
@@ -65,19 +73,26 @@ class ProductController extends Controller
 
     public function detail($id)
     {
-        $product = Product::findOrFail($id);
-        return view('pages.admin.product.detail', compact('product'));
+        $data = DB::table('distributors')
+                ->join('products', 'distributors.id', '=', 'products.id_distributor')
+                ->select('products.*','distributors.*')
+                ->where('products.id', '=', $id)
+                ->first();
+
+        return view('pages.admin.product.detail', compact('data'));
     }
 
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('pages.admin.product.edit', compact('product'));
+        $distributor = Distributor::all();
+        return view('pages.admin.product.edit', compact('product', 'distributor'));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            'id_distributor' => 'required|numeric',
             'name' => 'required',
             'price' => 'numeric',
             'category' => 'required',
@@ -106,6 +121,7 @@ class ProductController extends Controller
         }
 
         $product->update([
+            'id_distributor' => $request->id_distributor,
             'name' => $request->name,
             'price' => $request->price,
             'category' => $request->category,

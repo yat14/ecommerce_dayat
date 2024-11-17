@@ -19,21 +19,28 @@
                         <th>Nama Produk</th>
                         <th>Harga Produk Diskon</th>
                         <th>Harga Produk Asli</th>
+                        <th>Kategori</th>
+                        <th>Deskripsi</th>
+                        <th>Gambar</th>
                         <th>Action</th>
                     </tr>
                     @php
                         $no = 0
                     @endphp
-                    @forelse ($flashes as $item)
+                    @forelse ($dataFlash as $item)
                     <tr>
                         <td>{{ $no += 1 }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->product->name }}</td>
                         <td>{{ $item->diskon_price }} Points</td>
-                        <td>{{ $item->original_price }} Points</td>
+                        <td>{{ $item->product->price }} Points</td>
+                        <td>{{ $item->product->category }} Points</td>
+                        <td>{{ $item->product->description }}</td>
                         <td>
-                        <a href="{{ route('flash.detail', $item->id) }}" class="badge badge-info">Detail</a>
-                        <a href="{{route('flash.edit', $item->id)}}" class="badge badge-warning"> Edit </a>
-                        <a href="{{route('flash.delete', $item->id)}}" class="badge badge-danger" data-confirm-delete="true">Hapus</a>
+                            <img src="{{ asset('images/' . $item->product->image) }}" alt="{{ $item->product->name }}" width="100" height="100">
+                        </td>
+                        <td>
+                        <a href="{{ route('flash.edit', $item->id)}}" class="badge badge-warning"> Edit </a>
+                        <a href="{{ route('flash.delete', $item->id)}}" class="badge badge-danger" data-confirm-delete="true">Hapus</a>
                         </td>
                     </tr>
                     @empty

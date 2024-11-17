@@ -18,20 +18,23 @@
             <div class="col-12 col-md-4 col-lg-12 m-auto">
                 <article class="article article-style-c">
                     <div class="article-header">
-                        <div class="article-image" data-background="{{ asset('images/' . $flash->image) }}">
+                        <div class="article-image" data-background="{{ asset('images/' . $data->image) }}">
                         </div>
                     </div>
                     <div class="article-details">
-                        <div class="article-category"><a href="#">{{ $flash->name }}</a>
+                        <div class="article-category"><a href="#">{{ $data->name }}</a></div>
                         <div class="bullet">
-                        </div> <a href="#">{{ $flash->category }}</a></div>
+                        </div> <a href="#">{{ $dataFlash->category }}</a></div>
                         <div class="article-title">
-                            <h2><a href="#">Diskon: {{ $flash->diskon_price }} Points</a></h2>
-                            <h2><a href="#">Asli: {{ $flash->original_price }} Points</a></h2>
+                            <h2><a href="#">Harga Diskon: {{ $data->diskon_price }} Points</a></h2>
+                        </div>
+                        <div class="article-title">
+                            <h2><a href="#">Harga Asli: {{ $data->price }} Points</a></h2>
                         </div>
                         <hr>
+                        <div class="article-category"><a href="#">{{ $data->category }}</a></div>
                         <p>
-                            {{ $flash->description }}
+                            {{ $data->description }}
                         </p>
                     </div>
                 </article>

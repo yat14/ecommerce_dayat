@@ -23,17 +23,17 @@
             <div class="row s_product_inner">
                 <div class="col-lg-6">
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="{{ asset('images/' . $flash->image) }}" alt="">
+                        <img class="img-fluid" src="{{ asset('images/' . $flash->product->image) }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
-                        <h3>{{ $flash->name }}</h3>
+                        <h3>{{ $flash->product->name }}</h3>
                         <h2>{{ $flash->diskon_price }} Points</h2>
                         <ul class="list">
                             <li>
                                 <a class="active" href="#">
-                                    <span>Kategori</span> : {{ $flash->category }}
+                                    <span>Kategori</span> : {{ $flash->product->category }}
                                 </a>
                             </li>
                         </ul>
